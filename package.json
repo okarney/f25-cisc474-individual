@@ -2,7 +2,8 @@
   "name": "cisc474-project-starter",
   "private": true,
   "scripts": {
-    "build": "NODE_OPTIONS=--max-old-space-size=256 turbo run build --concurrency 1",
+    "build": "turbo run build",
+    "start": "turbo run",
     "clean": "turbo run clean",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
