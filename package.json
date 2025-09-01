@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "start": "next start -p $PORT",
     "clean": "turbo run clean",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
