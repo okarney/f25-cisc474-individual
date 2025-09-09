@@ -25,13 +25,13 @@
 * As an administrator, I want to have the ability to remove users from the site if they are not behaving as they should so that I can ensure a safe environment for everyone.
 
 ## Site Map
-[Site Map](./apps/docs/public/site_map.pdf)
+[Site Map](./site_map.pdf)
 
 ## Wire Frames
-[Wire Frames](./apps/docs/public/wireframes.pdf)
+[Wire Frames](./wireframes.pdf)
 
 ## Basic Data Model Diagram
-[Data Model](./apps/docs/public/basic_data_model.pdf)
+[Data Model](./basic_data_model.pdf)
 
 
 ## Unique Submission Feature 
