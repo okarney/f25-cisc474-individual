@@ -2,19 +2,90 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/client"
+    provider = "prisma-client-js"
+    output   = "../generated/client"
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
+    user_id    String @id @default(uuid())
+    user_name  String
+    user_email String @unique
+    user_role  Role
+
+    user_feedback    Feedback[]
+    user_submissions Submission[]
+    user_enrollment Enrollment[]
+}
+
+model Course {
+    course_id          String  @id @default(uuid())
+    course_title       String
+    course_number      String  @unique
+    course_description String
+    course_user_id     String?
+
+    course_assignments Assignment[]
+    course_enrollment Enrollment[]
+}
+
+model Enrollment {
+    enrollment_id String @id @default(uuid())
+    enrollment_user User @relation(fields: [enrollment_user_id], references: [user_id])
+    enrollment_user_id String
+    enrollment_course Course @relation(fields: [enrollment_course_id], references: [course_id])
+    enrollment_course_id String
+
+    @@unique([enrollment_user_id, enrollment_course_id])
+}
+
+model Assignment {
+    assignment_id          String   @id @default(uuid())
+    assignment_title       String   @unique
+    assignment_description String
+    assignment_course      Course   @relation(fields: [assignment_course_id], references: [course_id])
+    assignment_course_id   String
+    assignment_due_date    DateTime
+
+    assignment_feedback    Feedback[]
+    assignment_submissions Submission[]
+}
+
+model Submission {
+    submission_id            String     @id @default(uuid())
+    submission_user          User       @relation(fields: [submission_user_id], references: [user_id])
+    submission_user_id       String
+    submission_time          DateTime   @default(now())
+    submission_assignment    Assignment @relation(fields: [submission_assignment_id], references: [assignment_id])
+    submission_assignment_id String
+
+    submission_feedback Feedback[]
+
+    @@unique([submission_user_id, submission_assignment_id])
+}
+
+model Feedback {
+    feedback_id            String     @id @default(uuid())
+    feedback_assignment    Assignment @relation(fields: [feedback_assignment_id], references: [assignment_id])
+    feedback_assignment_id String
+    feedback_submission    Submission @relation(fields: [feedback_submission_id], references: [submission_id])
+    feedback_submission_id String
+    feedback_instructor    User       @relation(fields: [feedback_instructor_id], references: [user_id])
+    feedback_instructor_id String
+    feedback_comment       String?
+    feedback_grade         String
+    feedback_time          DateTime   @default(now())
+
+    @@unique([feedback_submission_id, feedback_instructor_id])
+}
+
+enum Role {
+    STUDENT
+    INSTRUCTOR
+    ADMIN
 }

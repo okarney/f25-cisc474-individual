@@ -1,0 +1,12 @@
+user_id,user_name,user_email,user_role
+214fac04-d15e-4d81-bcda-039dc9405c69,Kim Raspberry,kim@raspberry.com,INSTRUCTOR
+21b244e4-97aa-4723-870d-b6773096b59e,Tim Apple,tim@apple.com,STUDENT
+5c373a7e-ad34-44e4-9a30-273748a99413,Sam Strawberry,sam@strawberry.com,INSTRUCTOR
+6b2087e6-c458-4219-8e06-6d121928d09f,Chris Clementine,chris@clementine.com,STUDENT
+7a5d9122-bbf3-4474-8033-76e86a5cecf8,Bridget Plum,bridget@plum.com,STUDENT
+7dccb9e6-6c4c-4aaf-b4c7-f2f425892a97,Joy Kiwi,joy@kiwi.com,STUDENT
+90f85784-5f0b-4099-8233-f9c72b5a0f18,Constance Tangerine,constance@tangerine.com,STUDENT
+d3fd9016-080e-460d-81d6-49cb3322df35,John Blueberry,john@blueberry.com,INSTRUCTOR
+f19b535a-a1f3-4ee0-84db-b9807ed5e4cc,Rachel Cantelope,rachel@cantelope.com,ADMIN
+f5a29f0b-b39f-410d-8d93-5fdd767ac3fa,Stuart Grape,stuart@grape.com,INSTRUCTOR
+ff722cac-a907-4f67-8d8c-90cc126be8e0,Benjamin Orange,benjamin@orange.com,STUDENT
