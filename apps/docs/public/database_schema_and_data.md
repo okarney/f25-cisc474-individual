@@ -1,5 +1,6 @@
 ## Prisma Schema File
-[prisma.schema](../../packages/database/prisma/schema.prisma)
+[prisma.schema](../../../packages/database/prisma/schema.prisma)
+packages/database/prisma/schema.prisma
 
 ## Test Data CSV Files
 [Users](../../packages/database/test_data/Assignment_rows.csv)
