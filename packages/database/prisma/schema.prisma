@@ -20,7 +20,7 @@ model User {
 
     user_feedback    Feedback[]
     user_submissions Submission[]
-    user_enrollment Enrollment[]
+    user_enrollment  Enrollment[]
 }
 
 model Course {
@@ -31,14 +31,14 @@ model Course {
     course_user_id     String?
 
     course_assignments Assignment[]
-    course_enrollment Enrollment[]
+    course_enrollment  Enrollment[]
 }
 
 model Enrollment {
-    enrollment_id String @id @default(uuid())
-    enrollment_user User @relation(fields: [enrollment_user_id], references: [user_id])
-    enrollment_user_id String
-    enrollment_course Course @relation(fields: [enrollment_course_id], references: [course_id])
+    enrollment_id        String @id @default(uuid())
+    enrollment_user      User   @relation(fields: [enrollment_user_id], references: [user_id])
+    enrollment_user_id   String
+    enrollment_course    Course @relation(fields: [enrollment_course_id], references: [course_id])
     enrollment_course_id String
 
     @@unique([enrollment_user_id, enrollment_course_id])
