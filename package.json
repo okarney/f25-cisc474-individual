@@ -31,6 +31,7 @@
     "node": ">=18"
   },
   "dependencies": {
+    "@nestjs/mapped-types": "*",
     "@prisma/client": "^6.16.2",
     "psql": "^0.0.1",
     "uuid": "^13.0.0"
