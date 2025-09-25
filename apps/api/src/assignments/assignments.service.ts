@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
-export class CoursesService {
+export class AssignmentsService {
     constructor(private prisma: PrismaService) {}
 
     async findAll() {
-        return this.prisma.course.findMany();
+        return this.prisma.assignment.findMany();
     }
 
     async findOne(id) {
-        return this.prisma.course.findUnique( {where: {course_id: id}} );
+        return this.prisma.assignment.findUnique( {where: {assignment_id: id}} );
     }
-
+    
 }
