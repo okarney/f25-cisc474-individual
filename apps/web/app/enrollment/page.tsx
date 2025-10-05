@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Courses from "../fetch_components/courses";
 import Link from "next/link";
 
-export default async function Login() {
+export default async function Enrollment() {
   const courses = (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses`)).json();
 
   return (
