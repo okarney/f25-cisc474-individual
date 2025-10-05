@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { useState } from "react";
 
-export default function Login() {
+export default function Course1() {
   const [activeSection, setActiveSection] = useState("Assignments");
   return (
           <div >

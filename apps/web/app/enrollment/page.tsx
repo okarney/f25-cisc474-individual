@@ -1,9 +1,24 @@
+import { Suspense } from "react";
 import styles from "./page.module.css";
+import Courses from "../fetch_components/courses";
+import Link from "next/link";
 
-export default function Login() {
+export default async function Enrollment() {
+  const courses = (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/courses`)).json();
+
   return (
           <div className={styles.page}>
             <h1>Available Courses</h1>
+      
+          <h4>Courses from Backend Connection</h4>
+
+          <Suspense fallback={<div>Loading...</div>}>
+            <Courses courses={courses} />
+          </Suspense>
+
+          <br></br>
+          <Link style={{color: "blue"}} href="/dashboard"><u>Back to Dashboard</u></Link>
+          <br></br>
 
           <div className={styles.main_page}>          
             <div className={styles.menu_table}>
