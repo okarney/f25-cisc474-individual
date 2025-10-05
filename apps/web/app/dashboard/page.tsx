@@ -1,10 +1,13 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 
-export default function Login() {
+
+export default async function Dashboard() {
+  
+
   return (
           <div className={styles.page}>
-            <h1>Welcome, Name!</h1>
+            <h1>Welcome, Name!</h1>     
 
           <div className={styles.main_page}>          
             <div className={styles.menu_table}>
@@ -48,7 +51,16 @@ export default function Login() {
 
 
             <div className={styles.menu_table}>
-              <span className={styles.menu_item}>Calendar would go here.</span>
+              <span className={styles.menu_item}>Calendar would go here.
+                <br></br><br></br>                
+                <Link style={{color: "blue"}}href="/assignment1">
+                  <u>Link to See Assignments from Backend Connection</u>
+                </Link>
+                  <br></br><br></br>
+                  <Link style={{color: "blue"}}href="/enrollment">
+                  <u>Link to See Courses from Backend Connection</u>
+                </Link>
+              </span>
             </div>
 
             <div className={styles.menu_table}>

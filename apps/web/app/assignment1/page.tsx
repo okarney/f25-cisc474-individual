@@ -1,9 +1,23 @@
+import { Suspense } from "react";
 import styles from "./page.module.css";
+import Assignments from "../fetch_components/assignments";
+import Link from "next/link";
 
-export default function Assignment1() {
+export default async function Assignment1() {
+  const assignments = (await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/assignments`)).json();
+
   return (
     <div className={styles.page}>
       <h1>Learning Next.js</h1>
+
+      <h4>Assignments from Backend Connection</h4>
+      <Suspense fallback={<div>Loading...</div>}>
+            <Assignments assignments={assignments} />
+      </Suspense>
+
+      <br></br>
+        <Link style={{color: "blue"}} href="/dashboard"><u>Back to Dashboard</u></Link>
+      <br></br>
 
       <div className={styles.main_page}>
         <div className={styles.assignment_info}>
