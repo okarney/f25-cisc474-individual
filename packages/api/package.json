@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "@nestjs/mapped-types": "*",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "zod": "^4.1.11"
   },
   "devDependencies": {
