@@ -12,5 +12,9 @@ export class AssignmentsService {
     async findOne(id) {
         return this.prisma.assignment.findUnique( {where: {assignment_id: id}} );
     }
+
+    async findCourseAssignments(course_id) {
+        return this.prisma.assignment.findMany( {where: {assignment_course_id: course_id}})
+    }
     
 }

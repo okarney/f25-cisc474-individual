@@ -23,6 +23,11 @@ export async function fetchAssignments() {
     const courses = await fetch(`${import.meta.env.VITE_BACKEND_URL}/assignments`);
     return courses.json()
 }
+export async function fetchAssignmentsByCourseId(assignmentCourseId: string) {
+    const courses = await fetch(`${import.meta.env.VITE_BACKEND_URL}/assignments/course/${assignmentCourseId}`);
+    return courses.json()
+}
+
 
 export async function fetchSubmissions() {
     const courses = await fetch(`${import.meta.env.VITE_BACKEND_URL}/submissions`);

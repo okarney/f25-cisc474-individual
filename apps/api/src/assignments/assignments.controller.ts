@@ -14,4 +14,9 @@ export class AssignmentsController {
   findOne(@Param('id') id: string) {
     return this.assignmentsService.findOne(id);
   }
+
+  @Get('course/:course_id')
+  findCourseAssignments(@Param('course_id') course_id: string) {
+    return this.assignmentsService.findCourseAssignments(course_id);
+  }
 }

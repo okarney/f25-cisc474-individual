@@ -10,13 +10,14 @@ export const Route = createFileRoute('/')({
 
 function Course({course_id, course_title, course_number}: {course_id: string, course_title: string; course_number: string;}) {
   return (
-    <div className="styles.menu_item_info">
-      <Link className="block text-lg text-black mb-4" to="/$course" params={{ course: course_id}}>
-        <span><strong>{course_title}</strong></span>
-        <p>{course_number}</p>
-      </Link>
+    <div>
+      <div className="py-3 px-3 rounded-lg hover:bg-gray-200 transition">
+        <Link className="block text-lg text-black mb-1" to="/$course" params={{ course: course_id}}>
+          <span><strong>{course_title}</strong></span>
+          <p>{course_number}</p>
+        </Link>
+      </div>
       <hr className="my-2 border-gray-300"></hr>
-
     </div>
   )
 }
