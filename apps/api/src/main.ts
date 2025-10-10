@@ -7,7 +7,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       "http://localhost:3001",
-      "https://f25-cisc474-individual-frontend.onrender.com"
+      "https://cisc474-individual-project.okarney.workers.dev"
     ],
     methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
     credentials: true,
