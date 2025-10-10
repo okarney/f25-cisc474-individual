@@ -11,7 +11,7 @@ export const Route = createFileRoute('/$course')({
   loader: ({ params }) => fetchCourseById(params.course)
 })
 
-function Assignment({assignment_title, assignment_due_date, assignment_feedback}: {assignment_title: string; assignment_due_date: string; assignment_feedback: string}) {
+function Assignment({assignment_id, assignment_title, assignment_due_date, assignment_feedback}: {assignment_id: string, assignment_title: string; assignment_due_date: string; assignment_feedback: string}) {
   return (
     <div>
       {/* <div className="py-3 px-3 rounded-lg hover:bg-gray-200 transition">
@@ -21,7 +21,7 @@ function Assignment({assignment_title, assignment_due_date, assignment_feedback}
         </Link>
       </div> */}
 
-      <Link className="flex justify-between items-center p-4 rounded-lg transition" to="/assignment1">
+      <Link className="flex justify-between items-center p-4 rounded-lg hover:bg-gray-200 transition" to="/$assignment" params={{ assignment: assignment_id }}>
         <div className="flex flex-col">
           <span className="font-semibold text-left text-gray-900 dark:text-gray-200 mb-1">
             <strong>{assignment_title}</strong>
@@ -69,44 +69,28 @@ function RouteComponent() {
 
     <div className="flex flex-wrap gap-6 justify-center w-full max-w-[1400px]">          
       <div className="flex-1 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md flex flex-col">
-          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition" 
+          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center hover:bg-gray-200 transition" 
             onClick={() => setActiveSection("Assignments")}>
               Assignments
           </button>
           <hr className="my-2 border-gray-400 dark:border-gray-600"></hr>
-          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition" 
+          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center hover:bg-gray-200 transition" 
             onClick={() => setActiveSection("Calendar")}>
               Calendar
           </button>
           <hr className="my-2 border-gray-400 dark:border-gray-600"></hr>
-          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition" 
+          <button className="w-full py-3 px-4 mb-3 rounded-lg text-center dark:text-gray-200 hover:bg-gray-200 transition" 
             onClick={() => setActiveSection("Files")}>
               Files
           </button>
 
       </div>
       {activeSection === "Assignments" && (
-        <div className="flex-2 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md w-full md:w-auto">          
-          {/* <div className="flex flex-col gap-4">
-              <div className="w-full py-3 px-4 mb-3 rounded-lg text-center text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                <Link className="flex justify-between items-center p-4 rounded-lg transition" to="/assignment1">
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-left text-gray-900 dark:text-gray-200 mb-1">
-                      <strong>Learning Next.js</strong>
-                    </span>
-                    <p className="text-gray-600 dark:text-gray-300">
-                      <strong>Due:</strong> September 12 at 11:59p.m. | -/20pts
-                    </p>
-                  </div>
-                  <div><p className="font-semibold text-gray-900 dark:text-gray-200">100%</p></div>
-                </Link>
-              </div>
-          </div> */}
-
+        <div>         
           <div className="flex-1 min-w-[250px] bg-gray-100 border-2 border-black rounded-xl p-4 shadow-md">
             {/* Showing Courses from the backend/database */}
             {assignmentData.map((assignment: any) => (
-              <Assignment assignment_title={assignment.assignment_title} assignment_due_date={assignment.assignment_due_date} assignment_feedback={assignment.assignment_feedback}/>
+              <Assignment assignment_id={assignment.assignment_id} assignment_title={assignment.assignment_title} assignment_due_date={assignment.assignment_due_date} assignment_feedback={assignment.assignment_feedback}/>
             ))}
           </div>
         </div>

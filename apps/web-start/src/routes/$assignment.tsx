@@ -1,33 +1,44 @@
 import { createFileRoute } from '@tanstack/react-router'
 import '../css/assignment1.module.css'
+import { useQuery } from '@tanstack/react-query';
+import { fetchAssignmentById } from '../fetch';
 
-export const Route = createFileRoute('/assignment1')({
+export const Route = createFileRoute('/$assignment')({
   component: RouteComponent,
+  loader: ({ params }) => fetchAssignmentById(params.assignment)
+  
 })
 
 function RouteComponent() {
+  const { assignment } = Route.useParams()
+
+  const {isPending: pagePending, isError: isPageError, data: pageData, error: pageError} = useQuery({queryKey: ['assignments', assignment], queryFn: () => fetchAssignmentById(assignment) })
+
+
+  if (pagePending) {
+    return <span>Loading...</span>
+  }
+
+  if (isPageError) {
+    return <span>Error: {pageError.message}</span>
+  }
+
+  
   return (
     <div className="page">
-      <h1>Learning Next.js</h1>
+      <h1>{pageData.assignment_title}</h1>
 
-      {/* <h4>Assignments from Backend Connection</h4>
-      <Suspense fallback={<div>Loading...</div>}>
-            <Assignments assignments={assignments} />
-      </Suspense>
-
-      <br></br>
-        <Link style={{color: "blue"}} href="/dashboard"><u>Back to Dashboard</u></Link>
-      <br></br> */}
 
       <div className="main_page">
         <div className="assignment_info">
           <div className="section_box">
-            <p><strong>Due:</strong> September 12 at 11:59p.m. | -/20pts</p>
+            <p><strong>Due:</strong>{pageData.assignment_due_date} | -/20pts</p>
           </div>
           <div className="section_box">
             <span>
               <strong>Description:</strong><br></br>
-              Read over the following NextJS doc pages:
+              {pageData.assignment_description}
+              {/* Read over the following NextJS doc pages:
               <br></br>
               <br></br>
 
@@ -46,7 +57,7 @@ function RouteComponent() {
               Submit a link to the deployed page on Vercel.
               <br></br>
               <br></br>
-              Just to be clear, you should be developing the pages for your Individual Web Application (the LMS).
+              Just to be clear, you should be developing the pages for your Individual Web Application (the LMS). */}
             </span>
           </div>
         </div>

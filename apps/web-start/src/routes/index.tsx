@@ -51,13 +51,9 @@ function RouteComponent() {
       <div className="flex-1 min-w-[250px] bg-gray-100 border-2 border-black rounded-xl p-4 shadow-md text-center">
         <span className="block text-lg text-black mb-4">Calendar would go here.
           <br></br><br></br>                
-          <Link style={{color: "blue"}} to="/assignment1">
-            <u>Link to See Assignments from Backend Connection</u>
-          </Link>
-            <br></br><br></br>
-            <Link style={{color: "blue"}} to="/enrollment">
-            <u>Link to See Courses from Backend Connection</u>
-          </Link>
+          Click on any of the courses to see a dynamic course page that is fetching data from the backend for each course.
+          The Fundamentals of Optimization and Advanced Web Technologies have assignments, which will link to the appropriate
+          dynamic assignment page that also fetch info from the backend.
         </span>
       </div>
 
