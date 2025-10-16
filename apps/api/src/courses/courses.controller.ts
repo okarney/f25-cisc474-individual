@@ -1,5 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { CoursesService } from './courses.service';
+import { CourseOut, CourseCreateIn, CourseUpdateIn } from '../../../../packages/api/src/courses'
 
 @Controller('courses')
 export class CoursesController {
