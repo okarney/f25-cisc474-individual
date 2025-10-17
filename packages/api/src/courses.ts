@@ -12,7 +12,7 @@ export type CourseOut = z.infer<typeof CourseOut>;
 export const CourseCreateIn = z.object({
     course_title: z.string().min(1),
     course_number: z.string().min(3),
-    course_description: z.string().optional().nullable()
+    course_description: z.string()
 })
 export type CourseCreateIn = z.infer<typeof CourseCreateIn>;
 
