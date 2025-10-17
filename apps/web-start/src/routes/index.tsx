@@ -7,25 +7,11 @@ import { useState } from 'react';
 import { backendFetcher, mutateBackend } from '../integrations/fetcher';
 import { fetchCourses } from '../fetch.tsx';
 // import type { CourseOut } from './../../../../packages/api/src/courses.ts';
-import { CourseOut } from '@repo/api/courses';
+import type { CourseOut } from '@repo/api/courses';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
 });
-
-function Course({course_id, course_title, course_number}: {course_id: string, course_title: string; course_number: string;}) {
-  return (
-    <div>
-      <div className="py-3 px-3 rounded-lg hover:bg-gray-200 transition">
-        <Link className="block text-lg text-black mb-1" to="/$course" params={{ course: course_id}}>
-          <span><strong>{course_title}</strong></span>
-          <p>{course_number}</p>
-        </Link>
-      </div>
-      <hr className="my-2 border-gray-300"></hr>
-    </div>
-  )
-}
 
 function RouteComponent() {
   const [crud, setCrud] = useState("");
@@ -33,6 +19,41 @@ function RouteComponent() {
   const [newCourseNumber, setNewCourseNumber] = useState("");
   const [newCourseDescription, setNewCourseDescription] = useState("");
   
+  const [currentCourseId, setCurrentCourseId] = useState("")
+  const [currentCourseTitle, setCurrentCourseTitle] = useState("")
+  const [currentCourseNumber, setCurrentCourseNumber] = useState("")
+  const [currentCourseDescription, setCurrentCourseDescription] = useState("")
+
+
+  const [updatedCourseTitle, setUpdatedCourseTitle] = useState(currentCourseTitle);
+  const [updatedCourseNumber, setUpdatedCourseNumber] = useState(currentCourseNumber);
+  const [updatedCourseDescription, setUpdatedCourseDescription] = useState(currentCourseDescription);
+  
+
+  function getCurrentCourse({course_id, course_title, course_number, course_description, method}: {course_id: string, course_title: string; course_number: string; course_description: string; method: string;}) {
+    setCurrentCourseId(course_id);
+    setCurrentCourseTitle(course_title);
+    setCurrentCourseNumber(course_number);
+    setCurrentCourseDescription(course_description);
+    setCrud(method);
+  }
+  
+  function Course({course_id, course_title, course_number, course_description}: {course_id: string, course_title: string; course_number: string; course_description: string;}) {
+    return (
+      <div>
+        <div className="py-3 px-3 rounded-lg hover:bg-gray-200 transition">
+          <Link className="block text-lg text-black mb-1" to="/$course" params={{ course: course_id}}>
+            <span><strong>{course_title}</strong></span>
+            <p>{course_number}</p>
+          </Link>
+        </div>
+        <button onClick={() => getCurrentCourse({course_id, course_title, course_number, course_description, method: "update"})} className="py-3 px-5 rounded-xl bg-white border">Edit this course</button>
+
+        <hr className="my-2 border-gray-300"></hr>
+      </div>
+    )
+  }
+
   async function createCourse() {
     const newCourse = {
       course_title: newCourseTitle,
@@ -42,6 +63,17 @@ function RouteComponent() {
 
     const result = await mutateBackend('/courses', 'POST', newCourse);
     console.log( `Created new course ${result}`);
+  }
+
+  async function updateCourse() {
+    const updatedCourse = {
+      course_title: updatedCourseTitle,
+      course_number: updatedCourseNumber,
+      course_description: updatedCourseDescription,
+    };
+
+    const result = await mutateBackend(`/courses/${currentCourseId}`, 'PUT', updatedCourse);
+    console.log( `Updated ${currentCourseTitle} course`);
   }
   
   const {isPending, isError, data, error} = useQuery({queryKey: ['course'], queryFn: backendFetcher<Array<CourseOut>>('/courses'), initialData: []})
@@ -55,7 +87,6 @@ function RouteComponent() {
     return <span>Error: {error.message}</span>
   }
 
-  
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-8 font-sans bg-white dark:bg-gray-900">
       <h1 className="text-4xl font-bold text-[#00309B] text-center mb-8">Welcome, Name!</h1>     
@@ -64,7 +95,7 @@ function RouteComponent() {
       <div className="flex-1 min-w-[250px] bg-gray-100 border-2 border-black rounded-xl p-4 shadow-md">
         {/* Showing Courses from the backend/database */}
         {data.map((course: any) => (
-          <Course course_id={course.course_id} course_title={course.course_title} course_number={course.course_number} />
+          <Course course_id={course.course_id} course_title={course.course_title} course_number={course.course_number} course_description={course.course_description}/>
         ))}
       </div>
 
@@ -85,7 +116,7 @@ function RouteComponent() {
       </div>
     </div>
 
-    <button onClick={() => setCrud("update")} className="py-3 px-5 rounded-xl bg-white border">Click to Update a Course</button>
+    {/* <button onClick={() => setCrud("update")} className="py-3 px-5 rounded-xl bg-white border">Click to Update a Course</button> */}
     <button onClick={() => setCrud("create")} className="py-3 px-5 rounded-xl bg-white border">Click to Create a Course</button>
 
       {crud === "update" ? (
@@ -116,6 +147,9 @@ function RouteComponent() {
           value={newCourseDescription}
           onChange={(e) => setNewCourseDescription(e.target.value)} 
           />
+
+          <button onClick={updateCourse} className="py-3 px-5 rounded-xl bg-white border">Update Course</button>
+
         </div>
         ) : crud === "create" ? (
           <div className="flex-1 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md flex flex-col gap-2">
@@ -146,6 +180,8 @@ function RouteComponent() {
             onChange={(e) => setNewCourseDescription(e.target.value)}
             />
             <button onClick={createCourse} className="py-3 px-5 rounded-xl bg-white border">Create Course</button>
+            <span>New Course Created. Refresh to view it in the course list.</span>
+
           </div> 
         ) :
 
