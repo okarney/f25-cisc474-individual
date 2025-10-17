@@ -6,8 +6,8 @@ import { useState } from 'react';
 // import { fetchCourses } from '../fetch';
 import { backendFetcher, mutateBackend } from '../integrations/fetcher';
 import { fetchCourses } from '../fetch.tsx';
-import type { CourseOut } from './../../../../packages/api/src/courses.ts';
-// import type { CourseOut } from '@repo/api'
+// import type { CourseOut } from './../../../../packages/api/src/courses.ts';
+import { CourseOut } from '@repo/api/courses';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -45,6 +45,7 @@ function RouteComponent() {
   }
   
   const {isPending, isError, data, error} = useQuery({queryKey: ['course'], queryFn: backendFetcher<Array<CourseOut>>('/courses'), initialData: []})
+  // const {isPending, isError, data, error} = useQuery({queryKey: ['course'], queryFn: fetchCourses})
   
   if (isPending) {
     return <span>Loading...</span>
@@ -84,7 +85,8 @@ function RouteComponent() {
       </div>
     </div>
 
-    <button onClick={() => setCrud("update")} className="py-3 px-5 rounded-xl bg-white border">Click to Update an Assignment</button>
+    <button onClick={() => setCrud("update")} className="py-3 px-5 rounded-xl bg-white border">Click to Update a Course</button>
+    <button onClick={() => setCrud("create")} className="py-3 px-5 rounded-xl bg-white border">Click to Create a Course</button>
 
       {crud === "update" ? (
         <div className="flex-1 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md flex flex-col gap-2">
@@ -143,15 +145,12 @@ function RouteComponent() {
             value={newCourseDescription}
             onChange={(e) => setNewCourseDescription(e.target.value)}
             />
-            <button onClick={createCourse} className="py-3 px-5 rounded-xl bg-white border"></button>
+            <button onClick={createCourse} className="py-3 px-5 rounded-xl bg-white border">Create Course</button>
           </div> 
         ) :
 
         <div></div>
       }
-
-      <button onClick={() => setCrud("create")} className="py-3 px-5 rounded-xl bg-white border">Click to Create an Assignment</button>
-
 
 
     </div>

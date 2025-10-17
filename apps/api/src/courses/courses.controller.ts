@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CoursesService } from './courses.service';
-import { CourseCreateIn } from './../../../../packages/api/src/courses'
+// import { CourseCreateIn } from './../../../../packages/api/src/courses'
+import { CourseCreateIn, CourseOut } from '@repo/api/courses';
 
 @Controller('courses')
 export class CoursesController {
