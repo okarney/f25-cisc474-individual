@@ -72,7 +72,7 @@ function RouteComponent() {
       course_description: updatedCourseDescription,
     };
 
-    const result = await mutateBackend(`/courses/${currentCourseId}`, 'PUT', updatedCourse);
+    const result = await mutateBackend(`/courses/${currentCourseId}`, 'PATCH', updatedCourse);
     console.log( `Updated ${currentCourseTitle} course`);
   }
   
@@ -126,8 +126,8 @@ function RouteComponent() {
           <input
           className="py-1 border-1 rounded-l mb-2"
           type="text"
-          value={newCourseTitle}
-          onChange={(e) => setNewCourseTitle(e.target.value)}
+          value={updatedCourseTitle}
+          onChange={(e) => setUpdatedCourseTitle(e.target.value)}
           />
 
           <span><u>New Course Number</u></span>
@@ -135,8 +135,8 @@ function RouteComponent() {
           <input
           className="py-1 border-1 rounded-l mb-2"
           type="text"
-          value={newCourseNumber}
-          onChange={(e) => setNewCourseNumber(e.target.value)}
+          value={updatedCourseNumber}
+          onChange={(e) => setUpdatedCourseNumber(e.target.value)}
           />
 
           <span><u>New Course Description</u></span>
@@ -144,8 +144,8 @@ function RouteComponent() {
           <input
           className="py-1 border-1 rounded-l mb-2"
           type="text"
-          value={newCourseDescription}
-          onChange={(e) => setNewCourseDescription(e.target.value)} 
+          value={updatedCourseDescription}
+          onChange={(e) => setUpdatedCourseDescription(e.target.value)} 
           />
 
           <button onClick={updateCourse} className="py-3 px-5 rounded-xl bg-white border">Update Course</button>
