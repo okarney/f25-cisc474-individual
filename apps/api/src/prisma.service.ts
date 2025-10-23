@@ -6,6 +6,7 @@ import { PrismaClient } from './../../../packages/database/generated/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
+  authentication: any;
   async onModuleInit() {
     await this.$connect();
   }
