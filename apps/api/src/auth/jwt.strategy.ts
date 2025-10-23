@@ -55,7 +55,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
     // 1) Find Authentication by provider+providerId
     let auth = await this.prisma.authentication.findFirst({
-      where: { provider, providerId },
+      where: { authentication_provider: provider, authentication_provider_id: providerId },
       include: { user: true },
     });
 
