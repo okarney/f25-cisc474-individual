@@ -21,6 +21,19 @@ model User {
     user_feedback    Feedback[]
     user_submissions Submission[]
     user_enrollment  Enrollment[]
+
+    user_authentication Authentication[]
+}
+
+model Authentication {
+    authentication_id    String @id @default(uuid())
+    authentication_provider  String
+    authentication_provider_id String
+    authentication_user_id  String
+
+    user User @relation(fields: [authentication_user_id], references: [user_id] )
+
+    @@unique([authentication_provider, authentication_provider_id])
 }
 
 model Course {
