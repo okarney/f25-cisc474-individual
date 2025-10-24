@@ -108,10 +108,13 @@ export function useApiMutation<TInput extends Json, TOutput = unknown>(opts?: {
 
   return useMutation<TOutput, Error, TInput>({
     mutationFn: async (variables) => {
-      const { path, method = opts?.method ?? 'POST' } = opts?.endpoint?.(
-        variables,
-      ) ?? { path: opts?.path!, method: opts?.method ?? 'POST' };
+      const endpointResult = opts?.endpoint?.(variables);
+      const path = endpointResult?.path ?? opts?.path;
+      const method = endpointResult?.method ?? opts?.method ?? 'POST';
 
+      if (!path) {
+        throw new Error('No path provided for mutation');
+      }
       return await request<TOutput>(path, {
         method,
         body: JSON.stringify(variables),
