@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import '../css/enrollment.module.css'
 import { useQuery } from '@tanstack/react-query';
 import { fetchCourses } from '../fetch';
-import { backendFetcher } from '../integrations/fetcher';
+// import { backendFetcher } from '../integrations/fetcher';
 import type { EnrollmentOut } from './../../../../packages/api/src/enrollment.ts';
 
 export const Route = createFileRoute('/enrollment')({
@@ -26,16 +26,16 @@ function CourseOption({course_id, course_title, course_number}: {course_id: stri
 
 function RouteComponent() {
 
-  const {isPending, isError, data, error} = useQuery({queryKey: ['course'], queryFn: backendFetcher<Array<EnrollmentOut>>('/courses'), initialData: []})
-  console.log(data)
+  // const {isPending, isError, data, error} = useQuery({queryKey: ['course'], queryFn: backendFetcher<Array<EnrollmentOut>>('/courses'), initialData: []})
+  // console.log(data)
   
-  if (isPending) {
-    return <span>Loading...</span>
-  }
+  // if (isPending) {
+  //   return <span>Loading...</span>
+  // }
 
-  if (isError) {
-    return <span>Error: {error.message}</span>
-  }
+  // if (isError) {
+  //   return <span>Error: {error.message}</span>
+  // }
   
   return (
     <div className="flex flex-col items-center py-8 font-sans">
@@ -43,9 +43,9 @@ function RouteComponent() {
 
       <div className="flex-1 bg-gray-100 border-2 border-black rounded-xl p-4 ">
         {/* Showing Courses from the backend/database */}
-        {data.map((course: any) => (
+        {/* {data.map((course: any) => (
           <CourseOption course_id={course.course_id} course_title={course.course_title} course_number={course.course_number} />
-        ))}
+        ))} */}
       </div>
 
     

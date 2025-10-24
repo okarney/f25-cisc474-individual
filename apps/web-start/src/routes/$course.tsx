@@ -3,7 +3,7 @@ import '../css/course1.module.css'
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { fetchAssignmentsByCourseId, fetchCourseById } from '../fetch';
-import { mutateBackend } from '../integrations/fetcher';
+// import { mutateBackend } from '../integrations/fetcher';
 
 
 export const Route = createFileRoute('/$course')({
