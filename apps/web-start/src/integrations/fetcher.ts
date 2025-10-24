@@ -92,11 +92,11 @@ export function useApiQuery<T>(
   };
 }
 
-export function useApiMutation<Input extends Json, Output = unknown>(opts?: {
+export function useApiMutation<TInput extends Json, TOutput = unknown>(opts?: {
   /** Default scope for the token when mutating */
   scope?: string;
   /** Optionally compute the request per-variables */
-  endpoint?: (variables: Input) => { path: string; method?: string };
+  endpoint?: (variables: TInput) => { path: string; method?: string };
   /** Fallback endpoint if you don’t need variables to build it */
   path?: string;
   method?: 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -106,13 +106,13 @@ export function useApiMutation<Input extends Json, Output = unknown>(opts?: {
   const { request } = useApiClient();
   const qc = useQueryClient();
 
-  return useMutation<Output, Error, Input>({
+  return useMutation<TOutput, Error, TInput>({
     mutationFn: async (variables) => {
       const { path, method = opts?.method ?? 'POST' } = opts?.endpoint?.(
         variables,
       ) ?? { path: opts?.path!, method: opts?.method ?? 'POST' };
 
-      return await request<Output>(path, {
+      return await request<TOutput>(path, {
         method,
         body: JSON.stringify(variables),
         scope: opts?.scope,

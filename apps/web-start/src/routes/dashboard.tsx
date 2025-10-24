@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useApiMutation, useApiQuery, useCurrentUser } from '../integrations/fetcher';
 // import { fetchCourses } from '../fetch.tsx';
 // import type { CourseOut } from './../../../../packages/api/src/courses.ts';
-import { CourseCreateIn, CourseOut } from '@repo/api/courses';
+import type { CourseCreateIn, CourseOut } from '@repo/api/courses';
 
 export const Route = createFileRoute('/dashboard')({
   component: RouteComponent,
@@ -120,24 +120,17 @@ function RouteComponent() {
 
           <strong>CREATE</strong><br></br>
           Click the "Click to Create a Course" button at the bottom of this screen. Fill out the information and click "Create Course". 
-          Then, refresh the page to see the new course appear in the course list.
 
           <br></br><br></br>
 
           <strong>UPDATE</strong><br></br>
           Click the "Edit this course" button for any of the courses in the list. Fill out the information to modify the course fields and click "Update Course". 
-          Then, refresh the page to see the updated course appear in the course list.
 
           <br></br><br></br>
 
           <strong>DELETE</strong><br></br>
           Click the "Delete this course" button for any of the courses in the list. Scroll down if necessary to find the box asking you to confirm you want to delete the course. Click "Delete Course". 
-          Then, refresh the page to see the course is no longer in the list.
-
-          <br></br><br></br>
-
-          **NOTE: For any operation performed, the page needs to be refreshed to see the changes to the course list.**
-
+          
           <br></br><br></br>
 
           **NOTE: The course description field is not being displayed anywhere currently, so you will not be able to see changes to that field, although rest assured, they are happening.
@@ -189,8 +182,20 @@ function RouteComponent() {
                 course_description: updatedCourseDescription,
               });
             }} className="py-3 px-5 rounded-xl bg-white border">Update Course</button>
-          <span>Refresh page after clicking button to see the result.</span>
         
+          {update_course.isPending ? (
+              <div>Updating course...</div>
+            ) : (
+              <>
+                {create_course.isError ? (
+                  <div>Error updating course: {update_course.error!.message}</div>
+                ): null}
+                {create_course.isSuccess ? (
+                  <div>Course updated successfully!</div>
+                ): null}
+              </>
+            )}
+
         </div>
         ) : crud === "create" ? (
           <div className="flex-1 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md flex flex-col gap-2">
@@ -236,14 +241,12 @@ function RouteComponent() {
                   <div>Error creating course: {create_course.error.message}</div>
                 ): null}
                 {create_course.isSuccess ? (
-                  <div>Course created successfully! ID: {create_course.data.course_id}</div>
+                  <div>Course created successfully!</div>
                 ): null}
               </>
             )}
               
             
-            <span>Refresh page after clicking button to see the result.</span>
-
           </div> 
         ) : crud === "delete" ? (
           <div className="flex-1 min-w-[250px] bg-gray-100 dark:bg-gray-800 border-2 border-black rounded-xl p-4 shadow-md flex flex-col gap-2">
@@ -256,8 +259,20 @@ function RouteComponent() {
                 course_description: currentCourseDescription,
               });
             }} className="py-3 px-5 rounded-xl bg-white border">Delete Course</button>
+
+            {delete_course.isPending ? (
+              <div>Deleting course...</div>
+            ) : (
+              <>
+                {create_course.isError ? (
+                  <div>Error deleting course: {delete_course.error!.message}</div>
+                ): null}
+                {delete_course.isSuccess ? (
+                  <div>Course deleted successfully!</div>
+                ): null}
+              </>
+            )}
             
-            <span>Refresh page after clicking button to see the result.</span>
 
           </div> 
         ) :
